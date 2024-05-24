@@ -7,5 +7,5 @@ data class Article(
     val publishDate: String,
     val url: String? = null,
     val imageUrl: String? = null,
-    val isFavorite: Boolean? = false
+    var isFavorite: Boolean = false
 )

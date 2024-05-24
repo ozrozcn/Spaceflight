@@ -18,33 +18,49 @@ class SharedViewModel @Inject constructor(
     private val articleRepository: ArticleRepository
 ) : ViewModel() {
 
-    lateinit var setSelectedItem: Article
+    lateinit var selectedItem: Article
 
     private val _articleListState = MutableStateFlow<Resource<List<Article>>>(Resource.Loading())
     fun articleListState(): StateFlow<Resource<List<Article>>> = _articleListState.asStateFlow()
 
-    val obserf = ObservableField<Article>()
+    private val _favArticleListState = MutableStateFlow<Resource<List<Article>>>(Resource.Loading())
+    fun favArticleListState(): StateFlow<Resource<List<Article>>> = _favArticleListState.asStateFlow()
+
+    val articleDetailOF = ObservableField<Article>()
 
     init {
         getArticles()
     }
 
-    fun getArticles() {
+    private fun getArticles() {
         viewModelScope.launch {
+            articleRepository.getArticles()
             articleRepository.allArticles.collect { result ->
                 result.let {
                     _articleListState.value = Resource.Success(data = it)
                 }
             }
-//            getArticlesUseCase.getArticles().collect { result ->
-//                result.data?.let {
-//                    _articleListState.value = Resource.Success(data = it)
-//                }
-//            }
+        }
+    }
+
+    fun getFavoriteArticles(){
+        viewModelScope.launch {
+            articleRepository.favoriteArticles.collect { result ->
+                result.let {
+                    _favArticleListState.value = Resource.Success(data = it)
+                }
+            }
         }
     }
 
     fun setArticleDetail() {
-        obserf.set(setSelectedItem)
+        articleDetailOF.set(selectedItem)
+    }
+
+    fun toggleFavorite() {
+        viewModelScope.launch {
+            selectedItem.isFavorite = !selectedItem.isFavorite
+            articleRepository.updateFavoriteStatus(selectedItem.id, selectedItem.isFavorite)
+        }
     }
 }

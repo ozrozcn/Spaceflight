@@ -6,16 +6,14 @@ import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ozrozcn.core.SharedViewModel
 import com.ozrozcn.core.common.Resource
-import com.ozrozcn.core.common.extensions.observeInLifecycle
 import com.ozrozcn.core.domain.models.Article
 import com.ozrozcn.features.R
+import com.ozrozcn.features.common.ArticleListAdapter
 import com.ozrozcn.features.databinding.FragmentArticleListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -60,11 +58,19 @@ class ArticleListFragment : Fragment(R.layout.fragment_article_list) {
         articleAdapter.onItemClick = { _, item ->
             navigateToDetail(item)
         }
+
+        binding.favoriteButton.setOnClickListener {
+            navigateToFavorites()
+        }
     }
 
     private fun navigateToDetail(item: Article) {
-        sharedViewModel.setSelectedItem = item
+        sharedViewModel.selectedItem = item
         findNavController().navigate(R.id.action_articleListFragment_to_detailFragment)
+    }
+
+    private fun navigateToFavorites() {
+        findNavController().navigate(R.id.action_articleListFragment_to_favoritesFragment)
     }
 
     private fun setupObservers() {

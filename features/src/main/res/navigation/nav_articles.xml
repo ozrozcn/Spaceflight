@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_articleListFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_articleListFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
     </fragment>
 
     <fragment
@@ -21,5 +24,9 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.ozrozcn.features.favorites.FavoritesFragment"
-        android:label="FavoritesFragment" />
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

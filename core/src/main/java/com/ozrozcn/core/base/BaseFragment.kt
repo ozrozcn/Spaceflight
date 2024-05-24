@@ -14,7 +14,7 @@ import com.ozrozcn.core.BR
 abstract class BaseFragment<VM : ViewModel, DB : ViewDataBinding> : Fragment() {
 
     private var _binding: DB? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     abstract var viewModel : VM
 

@@ -1,5 +1,6 @@
 package com.ozrozcn.core.data.repositories
 
+import android.util.Log
 import com.ozrozcn.core.data.remote.apiservices.ArticleApiService
 import com.ozrozcn.core.domain.mappers.ArticleMapper
 import com.ozrozcn.core.domain.models.Article
@@ -16,8 +17,11 @@ class ArticlesRepositoryImpl @Inject constructor(
     private val mapper: ArticleMapper
 ) : ArticleRepository {
 
-    override val allArticles: Flow<List<Article>> =
-        articleDao.getAllArticles().map { it.map(mapper::fromDao2Domain) }
+    override val allArticles: Flow<List<Article>>
+       get() = articleDao.getAllArticles().map { it.map(mapper::fromDao2Domain) }
+
+    override val favoriteArticles: Flow<List<Article>>
+        get() = articleDao.getFavoriteArticles().map { it.map(mapper::fromDao2Domain) }
 
     override suspend fun getArticles(): Flow<List<Article>> = flow {
         try {
@@ -29,7 +33,11 @@ class ArticlesRepositoryImpl @Inject constructor(
 
             remoteData.map(mapper::fromDto2Domain)
         } catch (ex: Exception) {
-
+            Log.i("OZER", ex.localizedMessage)
         }
+    }
+
+    override suspend fun updateFavoriteStatus(articleId: Int, isFavorite: Boolean) {
+        articleDao.updateFavoriteStatus(articleId, isFavorite)
     }
 }

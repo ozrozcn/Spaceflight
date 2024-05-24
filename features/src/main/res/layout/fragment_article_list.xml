@@ -8,11 +8,27 @@
 
         <SearchView
             android:id="@+id/search_view"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@color/bg_search_view"
-            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/favorite_button"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/favorite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="@id/search_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_view"
+            app:tint="@android:color/holo_red_light" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_articles"
@@ -25,10 +41,10 @@
         <TextView
             android:id="@+id/result"
             android:layout_width="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"
             android:layout_margin="50dp"
-            android:layout_height="wrap_content" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

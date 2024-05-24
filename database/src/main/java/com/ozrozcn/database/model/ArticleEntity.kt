@@ -11,5 +11,5 @@ data class ArticleEntity(
     val publishedAt: String,
     val url: String? = null,
     val imageUrl: String? = null,
-    val isFavorite: Boolean? = false
+    val isFavorite: Boolean = false
 )

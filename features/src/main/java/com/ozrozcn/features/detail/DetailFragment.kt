@@ -17,8 +17,14 @@ class DetailFragment : BaseFragment<SharedViewModel, FragmentArticleDetailBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupLayout()
         sharedViewModel.setArticleDetail()
     }
+
+    private fun setupLayout() {
+        sharedViewModel.toggleFavorite()
+    }
+
     override var viewModel: SharedViewModel
         get() = sharedViewModel
         set(value) {}
