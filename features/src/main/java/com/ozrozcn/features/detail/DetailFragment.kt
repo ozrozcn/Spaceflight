@@ -22,7 +22,8 @@ class DetailFragment : BaseFragment<SharedViewModel, FragmentArticleDetailBindin
     }
 
     private fun setupLayout() {
-        sharedViewModel.toggleFavorite()
+        binding.favoriteButtonDetail.setOnClickListener { sharedViewModel.toggleFavorite() }
+
     }
 
     override var viewModel: SharedViewModel

@@ -9,7 +9,9 @@ interface ArticleRepository {
 
     val favoriteArticles : Flow<List<Article>>
 
-    suspend fun getArticles(): Flow<List<Article>>
+    suspend fun isFavorite(articleId: Int) : Boolean
+
+    suspend fun getArticles()
 
     suspend fun updateFavoriteStatus(articleId: Int, isFavorite: Boolean)
 }

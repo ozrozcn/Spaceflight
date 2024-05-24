@@ -60,6 +60,8 @@ class SharedViewModel @Inject constructor(
     fun toggleFavorite() {
         viewModelScope.launch {
             selectedItem.isFavorite = !selectedItem.isFavorite
+            articleDetailOF.set(selectedItem)
+            articleDetailOF.notifyChange()
             articleRepository.updateFavoriteStatus(selectedItem.id, selectedItem.isFavorite)
         }
     }

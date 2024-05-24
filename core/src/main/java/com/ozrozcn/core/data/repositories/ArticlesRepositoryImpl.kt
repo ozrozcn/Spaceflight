@@ -7,7 +7,6 @@ import com.ozrozcn.core.domain.models.Article
 import com.ozrozcn.core.domain.repositories.ArticleRepository
 import com.ozrozcn.database.dao.ArticleDao
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -23,7 +22,10 @@ class ArticlesRepositoryImpl @Inject constructor(
     override val favoriteArticles: Flow<List<Article>>
         get() = articleDao.getFavoriteArticles().map { it.map(mapper::fromDao2Domain) }
 
-    override suspend fun getArticles(): Flow<List<Article>> = flow {
+    override suspend fun isFavorite(articleId: Int): Boolean =
+        articleDao.getFavoriteStatus(articleId)
+
+    override suspend fun getArticles()  {
         try {
             val response = api.getArticles()
 
@@ -33,7 +35,7 @@ class ArticlesRepositoryImpl @Inject constructor(
 
             remoteData.map(mapper::fromDto2Domain)
         } catch (ex: Exception) {
-            Log.i("OZER", ex.localizedMessage)
+            Log.i("OZER", "ex" + ex.localizedMessage)
         }
     }
 

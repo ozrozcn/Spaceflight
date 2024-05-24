@@ -59,7 +59,7 @@
             android:src="@drawable/ic_heart"
             app:layout_constraintBottom_toBottomOf="@id/imageview"
             app:layout_constraintEnd_toEndOf="@id/imageview"
-            app:tint="@color/white" />
+            imageTint="@{viewModel.articleDetailOF.favorite == true ? @color/red : @color/white}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

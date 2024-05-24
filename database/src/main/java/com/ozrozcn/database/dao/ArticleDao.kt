@@ -21,4 +21,7 @@ interface ArticleDao {
 
     @Query("UPDATE articles SET isFavorite = :isFavorite WHERE id = :articleId")
     suspend fun updateFavoriteStatus(articleId: Int, isFavorite: Boolean)
+
+    @Query("SELECT isFavorite FROM articles WHERE id = :articleId")
+    suspend fun getFavoriteStatus(articleId: Int): Boolean
 }
